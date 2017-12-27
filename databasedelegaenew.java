@@ -308,18 +308,15 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
  }
     
 	public List<GenericAutoTime> getDataByTime(Long stime, Long etime ,String reportInterval){
-		System.out.println("get Data By Time called");
 		GenericAutoTime allData = null;
 		List<GenericAutoTime> t24Data = null;
 		List<GenericAutoTime> allLstData = new ArrayList<GenericAutoTime>();
 		t24Data=t24MgrImpl.getDataByTime(stime, etime, reportInterval);
 		
-		System.out.println("t24Data:::"+t24Data);
 		int ri = Integer.parseInt(reportInterval);
 //		System.out.println("ri======="+ri);
 		long et = etime/1000;
 		if(t24Data!=null){			
-			System.out.println("online data = null");
 			int j = 0;
 			int k = ri, n = 0;
 			long l = 0, m = 0;			
@@ -328,23 +325,20 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 			int status = 0; 
 			
 			if(ri>1){
-			  System.out.println("ri>1");
 			  l=st+k;
-			  System.out.println("l value = "+l);
 			  if(st<l){				  
 				  System.out.println("st<1");
 			    for(GenericAutoTime lstdata: t24Data){	
-			    	System.out.println("generic auto time caled 324");
 				    if(st == lstdata.getMinute_time()){	
-				    	System.out.println("st+++++++"+st);
 					  m = m + lstdata.getId_count();
+					  
 					  if(lstdata.getId_count()>0)
 					  n++;
 					}
 				}	
 			    k--;
-			  }else if(st==l){				
-				  System.out.println("line no 333");
+			  }else if(st==l){
+				  System.out.println("st value :: "+st);
 				  allData = new GenericAutoTime();
 				  allData.setMinute_time(st);
 				  if(n==0)
@@ -362,9 +356,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 			}else{
 				
 			  for(GenericAutoTime lstdata: t24Data){
-				  System.out.println("line 351");
 				if(st == lstdata.getMinute_time()){		
-					System.out.println("st::::::::::");
 				allData = new GenericAutoTime();
 				allData.setMinute_time(lstdata.getMinute_time());
 				allData.setId_count(lstdata.getId_count());
@@ -375,7 +367,6 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 			  }
 			  
 			  if(status == 0){	
-				  System.out.println("status = zero");
 					allData = new GenericAutoTime();
 					allData.setMinute_time(st);
 					allData.setId_count(0);
@@ -388,8 +379,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 			}						
 			
 			if(status == 1){
-				System.out.println("status=1");
-//				System.out.println("allLstData==="+allLstData);
+				System.out.println("allLstData==="+allLstData);
 				allLstData.add(j, allData);
 				j++;
 			}
@@ -397,15 +387,13 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 			}		
 			return allLstData;
 		}else{			
-			System.out.println("t24data is null");
 			int j = 0;
 			for(long st = stime/1000; st <= et; st=st+ri){
 				allData = new GenericAutoTime();																			
 				allData.setMinute_time(st);
 				allData.setId_count(0);
 				allData.setTime_String("");
-				allData.setID(0);	
-				System.out.println("allData status one:::::");					
+				allData.setID(0);					
 				allLstData.add(j, allData);
 				j++;			
 			    
@@ -616,6 +604,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
         webData=webMgrImpl.getRumAvgReqRes(reportInterval,stime, etime);
         
         //System.out.println("webData:::"+webData);
+        //int ri = Integer.parseInt(reportInterval);
         int ri = Integer.parseInt(reportInterval);
         
       System.out.println("ri======="+ri);
@@ -628,24 +617,24 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
     		long l = 0, m = 0,r=0;	      
     		String s = null;
             for(long st = sTime/1000; st <= et; st++){
-                            System.out.println("call 1");
+                            //System.out.println("call 1");
             int status = 0; 
             
             if(ri>1){
             	
-            	System.out.println("startTime:::::::"+sTime);
-            	System.out.println("endtime:::::::::"+eTime);
+            	//System.out.println("startTime:::::::"+sTime);
+            	//System.out.println("endtime:::::::::"+eTime);
                 //System.out.println("ri>1");
                 l=st+k;
                 System.out.println("st value::::::"+st);
                 //System.out.println("l value = "+l);
                 if(st<l){         
-                  System.out.println("st<1");
+                  //System.out.println("st<1");
                   for(Time2AvgData lstdata: webData){  
                     //System.out.println("generic auto time caled 639");
                   if(st*1000 == lstdata.getMinute_time()){
                       System.out.println("st+++++++"+st);
-      				allData.setMinute_time(lstdata.getMinute_time());
+      				//allData.setMinute_time(lstdata.getMinute_time());
     				allData.setLinkid(lstdata.getLinkid());
     				allData.setAvgResponseSize(lstdata.getAvgResponseSize());
     				allData.setAvgRequestSize(lstdata.getAvgRequestSize());
@@ -658,16 +647,19 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
                     r = r + lstdata.getAvgRequestSize();
                     if(lstdata.getAvgRequestSize()>0)
                    p++;
+                    
+                    
                     //s = s + lstdata.getsMinuteTime();
 
                   }
                 } 
+                  //System.out.println("first K = "+k);
                   k--;
-                  System.out.println("st check value::::::"+st);
+                  //System.out.println("Second K = "+k);
                 }else if(st==l){
-                	System.out.println("call st =1 ");
-                	System.out.println("st double check::"+st);
-                  System.out.println("line no 648");
+                	//System.out.println("call st =1 ");
+                	//System.out.println("st double check::"+st);
+                  //System.out.println("line no 648");
                   allData = new Time2AvgData();
                   
                   allData.setMinute_time(st);
@@ -678,8 +670,8 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
                   allData.setLinkid(0);
                   allData.setsMinuteTime("");
                   //allData.setLinkid(0);
-                  allData.setAvgResponseSize(m/n);
-                  allData.setAvgRequestSize(r/p);
+                  allData.setAvgResponseSize(0);
+                  allData.setAvgRequestSize(0);
                   status = 1;
                   st--;
                   k=ri;
@@ -691,11 +683,11 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
             else{
                 
               for(Time2AvgData lstdata: webData){
-                  System.out.println("line 351");
-                  System.out.println("st data::::"+st);
-                  System.out.println("lst data time:::"+lstdata.getMinute_time());
+                  //System.out.println("line 351");
+                  //System.out.println("st data::::"+st);
+                  //System.out.println("lst data time:::"+lstdata.getMinute_time());
                 if(st*1000 == lstdata.getMinute_time()){     
-                    System.out.println("st:::::::::: called");
+                    //System.out.println("st:::::::::: called");
                 allData = new Time2AvgData();
 				allData.setMinute_time(lstdata.getMinute_time());
 				allData.setLinkid(lstdata.getLinkid());
@@ -707,7 +699,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
               }
               
               if(status == 0){  
-                  System.out.println("status = zero");
+                  //System.out.println("status = zero");
                     allData = new Time2AvgData();
 					allData.setMinute_time(st);
 					allData.setLinkid(0);
@@ -720,7 +712,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
             }                       
             
             if(status == 1){
-                System.out.println("status=1");
+                //System.out.println("status=1");
 //              System.out.println("allLstData==="+allLstData);
                 allLstData.add(j, allData);
                 j++;
@@ -729,7 +721,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
             }       
             return allLstData;
         }else{          
-            System.out.println("t24data is null");
+            //System.out.println("t24data is null");
             int j = 0;
             for(long st = sTime/1000; st <= et; st=st+ri){
                 allData = new Time2AvgData();                                                                            
@@ -738,7 +730,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 				allData.setAvgResponseSize(0);
 				allData.setAvgRequestSize(0);
 				allData.setsMinuteTime("");
-                System.out.println("allData status one:::::");                  
+              //  System.out.println("allData status one:::::");                  
                 allLstData.add(j, allData);
                 j++;            
                 
@@ -898,131 +890,245 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 		}
 		return null;
 	}
-	public List<GroupedTimeData> getAvgWebElapsedByServer(String date,
-			String stTime, String endTime) {
-		try{
-		    List<GroupedTimeData> lst = null;
-			lst = timingMgrImpl.getAvgWebElapsedByServer(date, stTime, endTime);
-			return lst;
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
-		return null;
-	}
+//	public List<GroupedTimeData> getAvgWebElapsedByServer(String date,
+//			String stTime, String endTime) {
+//		try{
+//		    List<GroupedTimeData> lst = null;
+//			lst = timingMgrImpl.getAvgWebElapsedByServer(date, stTime, endTime);
+//			return lst;
+//		}
+//		catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//		return null;
+//	}
 	
 	
-//	public List<GroupedTimeData> getAvgWebElapsedByServer( String reportInterval, String stTime, String endTime){
+	public List<GroupedTimeData> getAvgWebElapsedByServer(String reportInterval, String stTime, String endTime){
 //        Long sTime = Long.parseLong(stTime);
 //        Long eTime = Long.parseLong(endTime);
-//    System.out.println("get Data By Time called");
-//    GroupedTimeData allData = null;
-//    List<GroupedTimeData> timingData = null;
-//    List<GroupedTimeData> allLstData = new ArrayList<GroupedTimeData>();
-//    timingData=timingMgrImpl.getAvgWebElapsedByServer(reportInterval,stTime, endTime);
-//    
-//    System.out.println("timingData:::"+timingData);
-//    int ri = Integer.parseInt(reportInterval);
-////    System.out.println("ri======="+ri);
-//    long et = eTime/1000;
-//    if(timingData!=null){      
-//      System.out.println("online data = null");
-//      int j = 0;
-//      int k = ri, n = 0;
-//      long l = 0, m = 0;      
-//      for(long st = sTime/1000; st <= et; st++){
-//              
-//      int status = 0; 
-//      
-//      if(ri>1){
-//        System.out.println("ri>1");
-//        l=st+k;
-//        System.out.println("l value = "+l);
-//        if(st<l){         
-//          System.out.println("st<1");
-//          for(GroupedTimeData lstdata: timingData){  
-//            System.out.println("generic auto time caled 324");
-//            if(st == lstdata.getTimeMsecs()){ 
-//              System.out.println("st+++++++"+st);
-//            m = m + lstdata.getId_count();
-//            if(lstdata.getId_count()>0)
-//            n++;
+    System.out.println("get Data By Time called");
+    GroupedTimeData allData = null;
+    List<GroupedTimeData> timingData = null;
+    List<GroupedTimeData> allLstData = new ArrayList<GroupedTimeData>();
+    timingData=timingMgrImpl.getAvgWebElapsedByServer(reportInterval,stTime, endTime);
+    
+    int ri = Integer.valueOf(reportInterval);
+    Long sTime = Long.parseLong(stTime);
+    Long eTime = Long.parseLong(endTime);
+    long et = eTime/1000;
+    if(timingData!=null){   
+    	
+    	
+    	System.out.println("start time::::"+stTime);
+    	System.out.println("end time:::::"+endTime);
+      int j = 0;
+      int k = ri, n = 0;
+      long l = 0, m = 0,lid = 0;   
+      String serName = null;
+      for(long st = sTime/1000; st <= et; st++){
+              
+      int status = 0; 
+      
+      if(ri>1){
+        l=st+k;
+        if(st<l){     
+        	//System.out.println("st<1 called");
+          for(GroupedTimeData lstdata: timingData){  
+            if(st == lstdata.getTimeMsecs()){
+                allData.setTimeMsecs(st);
+                allData.setId_count(lstdata.getId_count());
+                allData.setWeb_server_name(lstdata.getWeb_server_name());
+                
+                //m = m + lstdata.getId_count();
+                //lid = lid + lstdata.getLinkid();
+                //serName = lstdata.getWeb_server_name();
+                //status = 1;
+               //System.out.println(" m value :::"+m);
+			  //if(lstdata.getId_count()>0)
+			  //n++;
+			  //serName = allData.getWeb_server_name();
+          }
+          
+        } 
+          k--;
+        } else if(st==l){        
+          allData = new GroupedTimeData();
+          allData.setTimeMsecs(st);
+          allData.setId_count(0);
+          allData.setWeb_server_name("");
+          //if(n==0)
+          //n=1;
+          //System.out.println("m valu = "+m);
+          
+//          System.out.println("server name:::"+serName);
+//          if(m!=0){
+//          allData.setWeb_server_name(serName);
+//          }else {
+//        	  allData.setWeb_server_name("");
 //          }
-//        } 
-//          k--;
-//        }else if(st==l){        
-//          System.out.println("line no 333");
-//          allData = new GroupedTimeData();
-//          allData.setTimeMsecs(st);
-//          if(n==0)
-//          n=1;
-//          allData.setId_count(m/n);
-//          allData.setWeb_server_name("");
-//          allData.setLinkid(0);
-//          status = 1;
-//          st--;
-//          k=ri;
-//          m=0;
-//          n=0;
-//        }
-//                                        
-//      }else{
-//        
-//        for(GroupedTimeData lstdata: timingData){
-//          System.out.println("line 351");
-//        if(st == lstdata.getTimeMsecs()){   
-//          System.out.println("st::::::::::");
-//        allData = new GroupedTimeData();
-//        allData.setTimeMsecs(lstdata.getTimeMsecs());
-//        allData.setId_count(lstdata.getId_count());
-//        allData.setTime_String(lstdata.gweb_server_name());
-//        allData.setID(lstdata.getID());   
-//        status = 1;
-//          }
-//        }
-//        
-//        if(status == 0){  
-//          System.out.println("status = zero");
-//          allData = new GroupedTimeData();
-//          allData.setMinute_time(st);
-//          allData.setId_count(0);
-//          allData.setTime_String("");
-//          allData.setID(0); 
-////          System.out.println("all data status zero of:::"+allData);
-//          status = 1;
-//        }
-//        
-//      }           
-//      
-//      if(status == 1){
-//        System.out.println("status=1");
-////        System.out.println("allLstData==="+allLstData);
-//        allLstData.add(j, allData);
-//        j++;
-//      }
-//      
-//      }   
-//      return allLstData;
-//    }else{      
-//      System.out.println("t24data is null");
-//      int j = 0;
-//      for(long st = sTime/1000; st <= et; st=st+ri){
-//        allData = new GroupedTimeData();                                      
-//        allData.setMinute_time(st);
-//        allData.setId_count(0);
-//        allData.setTime_String("");
-//        allData.setID(0); 
-//        System.out.println("allData status one:::::");          
-//        allLstData.add(j, allData);
-//        j++;      
-//          
-//      }     
-//      return allLstData;
-//    }
-//      
-//   }  
-//	
-//	
+          allData.setLinkid(0);
+          status = 1;
+          st--;
+          k=ri;
+          m=0;
+          n=0;
+         // serName = null;
+        }
+                                        
+      }else{
+        
+        for(GroupedTimeData lstdata: timingData){
+          //System.out.println("line 351");
+        if(st == lstdata.getTimeMsecs()){   
+          //System.out.println("st::::::::::");
+        allData = new GroupedTimeData();
+        allData.setTimeMsecs(lstdata.getTimeMsecs());
+        allData.setId_count(lstdata.getId_count());
+        allData.setWeb_server_name(lstdata.getWeb_server_name());
+        status = 1;
+          }
+        }
+        
+        if(status == 0){  
+          //System.out.println("status = zero");
+          allData = new GroupedTimeData();
+          allData.setTimeMsecs(st);
+          allData.setId_count(0);
+          allData.setWeb_server_name("");
+//          System.out.println("all data status zero of:::"+allData);
+          status = 1;
+        }
+        
+      }           
+      
+      if(status == 1){
+        allLstData.add(j, allData);
+        j++;
+      }
+      
+      }   
+      return allLstData;
+    }else{      
+      //System.out.println("t24data is null");
+      int j = 0;
+      for(long st = sTime/1000; st <= et; st=st+ri){
+    	  System.out.println("call else condition:::::");
+        allData = new GroupedTimeData();                                      
+          allData.setTimeMsecs(st);
+          allData.setId_count(0);
+          allData.setWeb_server_name("");
+        //System.out.println("allData status one:::::");          
+        allLstData.add(j, allData);
+        j++;      
+      }     
+      return allLstData;
+    }
+   }  
+	
+	
+	
+	
+//	public List<GroupedTimeData> getAvgWebElapsedByServer(String interval,String stTime, String endTime){
+//      Long sTime = Long.parseLong(stTime);
+//      Long eTime = Long.parseLong(endTime);
+//
+//			GroupedTimeData allData = null;
+//			List<GroupedTimeData> timingData = null;
+//			List<GroupedTimeData> allLstData = new ArrayList<GroupedTimeData>();
+//			timingData=timingMgrImpl.getAvgWebElapsedByServer(interval,stTime, stTime);	
+//			
+//			int ri = Integer.parseInt(interval);
+//			long et = eTime/1000;
+//			if(timingData!=null){			
+//				int j = 0;
+//				int k = ri, n = 0;
+//				long l = 0, m = 0;			
+//				for(long st = sTime/1000; st <= et; st++){
+//								
+//				int status = 0; 
+//				
+//				if(ri>1){
+//				  
+//				  l=st+k;
+//				  if(st<l){				 
+//					  System.out.println("st < l called");
+//				    for(GroupedTimeData lstdata: timingData){					    	
+//					    if(st == lstdata.getTimeMsecs()){	
+//					        allData = new GroupedTimeData();
+//					        allData.setTimeMsecs(st);
+//					        allData.setId_count(lstdata.getId_count());
+//					        allData.setWeb_server_name(lstdata.getWeb_server_name());
+//						  m = m + lstdata.getId_count();
+//						  if(lstdata.getId_count()>0)
+//						  n++;
+//						}
+//					}	
+//				    k--;
+//				  }else if(st==l){				  
+//					  System.out.println("st == l called");
+//					  allData = new GroupedTimeData();
+//					  allData.setTimeMsecs(st);
+//					  if(n==0)
+//					  n=1;
+//					  System.out.println("m value = "+m);
+//					  allData.setId_count(m/n);
+//					  allData.setWeb_server_name("");
+//					  allData.setLinkid(0);
+//					  status = 1;
+//					  st--;
+//					  k=ri;
+//					  m=0;
+//					  n=0;
+//				  }
+//																				  
+//				}else{
+//					
+//				  for(GroupedTimeData lstdata: timingData){													    
+//					if(st == lstdata.getTimeMsecs()){		
+//					allData = new GroupedTimeData();
+//					allData.setTimeMsecs(lstdata.getTimeMsecs());
+//					allData.setId_count(lstdata.getId_count());
+//					allData.setWeb_server_name(lstdata.getWeb_server_name());
+//					allData.setLinkid(lstdata.getLinkid());		
+//					status = 1;
+//				    }
+//				  }
+//				  
+//				  if(status == 0){	
+//						allData = new GroupedTimeData();
+//						allData.setTimeMsecs(st);
+//						allData.setId_count(0);
+//						allData.setWeb_server_name("");
+//						allData.setLinkid(0);	
+//						status = 1;
+//				  }
+//					
+//				}						
+//				
+//				if(status == 1){				
+//					allLstData.add(j, allData);
+//					j++;
+//				}
+//				
+//				}		
+//				return allLstData;
+//			}else{			
+//				int j = 0;
+//				for(long st = sTime/1000; st <= et; st=st+ri){
+//					allData = new GroupedTimeData();																			
+//					allData.setTimeMsecs(st);
+//					allData.setId_count(0);
+//					allData.setWeb_server_name("");
+//					allData.setLinkid(0);	
+//																		
+//					allLstData.add(j, allData);
+//					j++;			
+//				    
+//				}			
+//				return allLstData;
+//			}
+//	}
 	
 	
 	

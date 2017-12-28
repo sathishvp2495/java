@@ -327,7 +327,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 			if(ri>1){
 			  l=st+k;
 			  if(st<l){				  
-				  System.out.println("st<1");
+				//  System.out.println("st<1");
 			    for(GenericAutoTime lstdata: t24Data){	
 				    if(st == lstdata.getMinute_time()){	
 					  m = m + lstdata.getId_count();
@@ -338,7 +338,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 				}	
 			    k--;
 			  }else if(st==l){
-				  System.out.println("st value :: "+st);
+				  //System.out.println("st value :: "+st);
 				  allData = new GenericAutoTime();
 				  allData.setMinute_time(st);
 				  if(n==0)
@@ -379,7 +379,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
 			}						
 			
 			if(status == 1){
-				System.out.println("allLstData==="+allLstData);
+				//System.out.println("allLstData==="+allLstData);
 				allLstData.add(j, allData);
 				j++;
 			}
@@ -604,8 +604,9 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
         webData=webMgrImpl.getRumAvgReqRes(reportInterval,stime, etime);
         
         //System.out.println("webData:::"+webData);
+//        int ri = Integer.parseInt(reportInterval);
+        int ri = Integer.valueOf(reportInterval);
         //int ri = Integer.parseInt(reportInterval);
-        int ri = Integer.parseInt(reportInterval);
         
       System.out.println("ri======="+ri);
         long et = eTime/1000;
@@ -918,10 +919,7 @@ public List<long[]> getDataByTimeForDygraph(Long stime, Long etime ,String repor
     Long eTime = Long.parseLong(endTime);
     long et = eTime/1000;
     if(timingData!=null){   
-    	
-    	
-    	System.out.println("start time::::"+stTime);
-    	System.out.println("end time:::::"+endTime);
+
       int j = 0;
       int k = ri, n = 0;
       long l = 0, m = 0,lid = 0;   

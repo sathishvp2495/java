@@ -1,3 +1,3 @@
 # java
 
-it contains how to restrict the ip address.
+it contains how to restrict the ip addres in web.xml file.
